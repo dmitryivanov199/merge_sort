@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "merge_sort.hpp"
 
 static bool is_base_case(unsigned int n);
@@ -13,15 +15,27 @@ void merge_sort(int *a, unsigned int n) {
         return;
     }
 
-    int *c = new int [n / 2];
-    int *d = new int [n / 2];
+    int c[n / 2];
+    int d[n / 2];
     get_array_half(a, c, n, half::LEFT);
+
+    for (unsigned int i{0}; i < n / 2; i++) {
+        std::cout << c[i] << " ";
+    }
+
+    std::cout << std::endl;
+
     get_array_half(a, d, n, half::RIGHT);
+
+    for (unsigned int i{0}; i < n / 2; i++) {
+        std::cout << d[i] << " ";
+    }
+
+    std::cout << std::endl;
+
     merge_sort(c, n / 2);
     merge_sort(d, n / 2);
     merge(a, c, d, n);
-    delete [] c;
-    delete [] d;
 }
 
 //-------------------------------------------------------------------------------
