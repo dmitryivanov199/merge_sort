@@ -7,7 +7,7 @@ void fill_a(int *a, unsigned int n);
 void print_a(const int *a, unsigned int n);
 
 int main() {
-    const unsigned int n{10};
+    const unsigned int n{20};
     int *a = new int[n];
 
     fill_a(a, n);

@@ -6,7 +6,7 @@ static bool is_base_case(unsigned int n);
 
 static void get_array_half(const int *a, int *part, unsigned int n, half which_half);
 
-static void merge(int *b, const int *c, const int *d, unsigned int n);
+static void merge(int *b, unsigned int n, const int *c, unsigned int c_n, const int *d, unsigned int d_n);
 
 //-------------------------------------------------------------------------------
 
@@ -15,27 +15,19 @@ void merge_sort(int *a, unsigned int n) {
         return;
     }
 
-    int c[n / 2];
-    int d[n / 2];
+    const unsigned int c_n{n / 2};
+    const unsigned int d_n{n - n / 2};
+
+    int c[c_n];
+    int d[d_n];
+
     get_array_half(a, c, n, half::LEFT);
-
-    for (unsigned int i{0}; i < n / 2; i++) {
-        std::cout << c[i] << " ";
-    }
-
-    std::cout << std::endl;
-
     get_array_half(a, d, n, half::RIGHT);
 
-    for (unsigned int i{0}; i < n / 2; i++) {
-        std::cout << d[i] << " ";
-    }
-
-    std::cout << std::endl;
-
-    merge_sort(c, n / 2);
-    merge_sort(d, n / 2);
-    merge(a, c, d, n);
+    merge_sort(c, c_n);
+    merge_sort(d, d_n);
+    
+    merge(a, n, c, c_n, d, d_n);
 }
 
 //-------------------------------------------------------------------------------
@@ -44,21 +36,22 @@ bool is_base_case(unsigned int n) {
     return n <= 1;
 }
 
-static void get_array_half(const int *a, int *part, unsigned int n, half which_half) {
+void get_array_half(const int *a, int *part, unsigned int n, half which_half) {
     unsigned int i{(which_half == half::LEFT)? 0 : n / 2};
     unsigned int j{0};
 
     for (; i < n; i++) {
-        part[j++] = a[i];
+        part[j] = a[i];
+        j++;
     }
 }
 
-static void merge(int *b, const int *c, const int *d, unsigned int n) {
+void merge(int *b, unsigned int n, const int *c, unsigned int c_n, const int *d, unsigned int d_n) {
     unsigned int i{0};
     unsigned int j{0};
 
     for (unsigned int k{0}; k < n; k++) {
-        if ((i < n / 2) && (j < n / 2)) {
+        if ((i < c_n) && (j < d_n)) {
             if (c[i] < d[j]) {
                 b[k] = c[i];
                 i++;
@@ -69,7 +62,7 @@ static void merge(int *b, const int *c, const int *d, unsigned int n) {
             }
         }
         else {
-            if (i >= n / 2) {
+            if (i >= c_n) {
                 b[k] = d[j];
                 j++;
             }
