@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "merge_sort.hpp"
 
 enum class half {
