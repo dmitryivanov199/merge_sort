@@ -2,6 +2,11 @@
 
 #include "merge_sort.hpp"
 
+enum class half {
+    LEFT,
+    RIGHT
+};
+
 static bool is_base_case(unsigned int n);
 
 static void get_array_half(const int *a, int *part, unsigned int n, half which_half);

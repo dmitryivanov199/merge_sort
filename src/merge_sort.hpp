@@ -3,9 +3,4 @@
 
 void merge_sort(int *a, unsigned int n);
 
-enum class half {
-    LEFT,
-    RIGHT
-};
-
 #endif //MERGE_SORT_HPP
