@@ -52,6 +52,7 @@ bool run_tests() {
 unsigned int get_random_array_number() {
     const unsigned int min{1};
     const unsigned int max{1000};
+    srand(time(0));
     return min + rand() % (max - min + 1);
 }
 
