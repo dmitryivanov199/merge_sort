@@ -52,15 +52,15 @@ bool run_tests() {
 unsigned int get_random_array_number() {
     const unsigned int min{1};
     const unsigned int max{1000};
-    srand(time(0));
-    return min + rand() % (max - min + 1);
+    std::srand(time(0));
+    return min + std::rand() % (max - min + 1);
 }
 
 void fill_array(int *a, unsigned int n) {
-    srand(time(0));
+    std::srand(time(0));
 
     for (unsigned int i{0}; i < n; i++) {
-        a[i] = rand();
+        a[i] = std::rand();
     }
 }
 
